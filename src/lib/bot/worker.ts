@@ -1,13 +1,13 @@
 // Require the necessary discord.js classes
 import doteenv from 'dotenv';
 const { parentPort } = require('worker_threads');
-const { Client, Events, GatewayIntentBits } = require('discord.js');
+import { Client, Events, GatewayIntentBits } from 'discord.js';
 
-doteenv.config()
+doteenv.config();
 const token = process.env.TOKEN;
 
 const userdata = new Map();
-const invalid_guilds = [];
+const invalid_guilds = new Array();
 // Create a new client instance
 const client = new Client({
   intents: [
@@ -33,7 +33,7 @@ client.once(Events.ClientReady, (c) => {
       }
       return Promise.allSettled(promises);
     })
-    .then((guild_promises) => {
+    .then((guild_promises: any) => {
       const guilds = [];
       for (const result of guild_promises.values()) {
         if (result.status == 'rejected') {
@@ -135,7 +135,7 @@ client.addListener(Events.GuildCreate, (guild) => {
 /* Emitted whenever a guild is deleted/left.
 PARAMETER    TYPE         DESCRIPTION
 guild        Guild        The guild that was deleted    */
-client.addListener(Events.GuildDelete, (guild) => {
+client.addListener(Events.GuildDelete, (guild: any) => {
   invalid_guilds.push(guild.id);
 });
 
@@ -151,7 +151,7 @@ function ready() {
   return client.isReady() && userdata.size > 0;
 }
 
-parentPort.on('message', (value) => {
+parentPort.on('message', (value: any) => {
   if (typeof value == 'string') {
     console.log(`[bot] ${value}`);
   } else if (typeof value == 'object') {
@@ -160,7 +160,7 @@ parentPort.on('message', (value) => {
   }
 });
 
-function getGuildData(resolve, reject, user_id) {
+function getGuildData(resolve: any, reject: any, user_id: any) {
   const guilds = userdata.get(user_id);
   if (!guilds) {
     return reject('user is not in any valid guilds');
@@ -187,7 +187,7 @@ function getGuildData(resolve, reject, user_id) {
   return resolve(guild_map);
 }
 
-function handleRequest(msg) {
+function handleRequest(msg: any) {
   if (typeof msg.id == 'undefined') {
     return;
   }
