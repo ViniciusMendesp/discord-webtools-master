@@ -1,0 +1,41 @@
+body {
+  padding: 50px;
+  font: 14px 'Lucida Grande', Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00b7ff;
+}
+
+body {
+  --size: 120px;
+}
+
+.red {
+  color: red;
+}
+.green {
+  color: green;
+}
+
+.size-40 {
+  --size: 40px;
+}
+
+.button-right {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: var(--size);
+  height: var(--size);
+  align-self: flex-end;
+  margin: var(--size) var(--size) calc(var(--size) * -2) 0;
+}
+
+.avatar {
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+  background-size: contain;
+  background-image: url('//cdn.discordapp.com/embed/avatars/0.png?size=128');
+}

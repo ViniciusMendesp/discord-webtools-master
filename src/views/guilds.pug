@@ -1,0 +1,17 @@
+extends index
+
+block guilds
+    - const error = (typeof guilds == 'string');
+    if error
+        h2.red Error
+        div The following internal error occured:
+        p(style="color:red") #{guilds} 
+    else
+        if guilds
+            h2.green Guild Ids
+            ul
+                each val in guilds
+                    li= val
+        else
+            h2.red Access Denied. 
+            div You are not a member of any candidate servers.

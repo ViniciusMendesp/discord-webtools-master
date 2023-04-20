@@ -1,0 +1,24 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+    div Hello!
+    div(id="info")
+    a(style="display:none" id="login", href='') Please Login
+    a(style="display:none" id="logout" onclick='logout()') Logout
+  div(class="size-40 button-right")
+    div(class="avatar" id="avatar")
+  block guilds
+  script.
+    document.getElementById('login').href = '!{authUri}';
+    localStorage.setItem('userdata', '!{userdata}');
+    const local_state = localStorage.getItem('oauth-state');
+    if (local_state && '!{state}') {
+      if (btoa(local_state) !== '!{state}') {
+        console.log("You may have been clickjacked!");
+        localStorage.removeItem('oauth-state');
+      }
+    }
+  script(src="javascripts/login.js")
+  script(src="javascripts/logout.js")
